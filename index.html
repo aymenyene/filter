@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mirror</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Mirror</h1>
+    </header>
+
+    <main class="app">
+      <section class="pane" aria-labelledby="mirror-title">
+        <div class="pane-head">
+          <h2 id="mirror-title">Live</h2>
+          <div class="row">
+            <label class="select">
+              <span>Blend</span>
+              <select id="blend">
+                <option value="0" selected>Multiply</option>
+                <option value="1">Soft light</option>
+                <option value="2">Overlay</option>
+                <option value="3">Pigment</option>
+                <option value="4">Normal</option>
+              </select>
+            </label>
+            <label class="check">
+              <input id="show-mesh" type="checkbox" />
+              <span>Mesh</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="stage mirror-stage">
+          <video id="video" playsinline muted></video>
+          <canvas id="mirror"></canvas>
+          <div id="no-face" class="badge" hidden>No face detected</div>
+        </div>
+      </section>
+
+      <section class="pane" aria-labelledby="studio-title">
+        <div class="pane-head">
+          <h2 id="studio-title">Canvas</h2>
+          <div class="row">
+            <label class="select">
+              <select id="preset" aria-label="Looks">
+                <option value="" selected disabled hidden>Looks</option>
+              </select>
+            </label>
+            <button id="undo" type="button" title="Undo (Ctrl/Cmd+Z)">Undo</button>
+            <button id="redo" type="button" title="Redo (Ctrl/Cmd+Shift+Z)">Redo</button>
+            <button id="clear" type="button">Clear</button>
+          </div>
+        </div>
+
+        <div class="stage studio-stage" id="studio-stage">
+          <canvas id="guide" width="1024" height="1024"></canvas>
+          <canvas id="paint" width="1024" height="1024"></canvas>
+          <div id="cursor" class="brush-cursor" hidden></div>
+        </div>
+
+        <div class="controls">
+          <div class="row tools">
+            <div class="tabs" role="group" aria-label="Tool">
+              <button id="tool-brush" type="button" class="active">Brush</button>
+              <button id="tool-eraser" type="button">Eraser</button>
+            </div>
+            <div class="swatches" id="swatches">
+              <input id="color" type="color" value="#c2185b" title="Custom color" aria-label="Custom color" />
+            </div>
+            <label class="check">
+              <input id="symmetry" type="checkbox" />
+              <span>Symmetry</span>
+            </label>
+          </div>
+
+          <label class="slider">
+            <span>Size</span>
+            <input id="size" type="range" min="2" max="150" step="1" value="28" />
+            <output id="size-out"></output>
+          </label>
+          <label class="slider">
+            <span>Strength</span>
+            <input id="strength" type="range" min="1" max="100" step="1" value="60" />
+            <output id="strength-out"></output>
+          </label>
+          <label class="slider">
+            <span>Softness</span>
+            <input id="softness" type="range" min="0" max="100" step="1" value="70" />
+            <output id="softness-out"></output>
+          </label>
+        </div>
+      </section>
+    </main>
+
+    <div id="loading" class="loading" role="status" aria-live="polite">
+      <div class="loading-card">
+        <div id="spinner" class="spinner"></div>
+        <h2 id="loading-title">Mirror</h2>
+        <ul class="steps">
+          <li id="step-camera" data-state="pending"><span class="dot"></span><span class="label">Camera</span><span class="status">Waiting</span></li>
+          <li id="step-model" data-state="pending"><span class="dot"></span><span class="label">Face tracking model</span><span class="status">Waiting</span></li>
+          <li id="step-renderer" data-state="pending"><span class="dot"></span><span class="label">Renderer</span><span class="status">Waiting</span></li>
+        </ul>
+        <div id="errors" class="errors" hidden></div>
+        <button id="retry" type="button" class="primary" hidden>Try again</button>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

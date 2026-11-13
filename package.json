@@ -1,0 +1,22 @@
+{
+  "name": "ar-face-paint-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Paint on a 2D face UV map and see it wrap onto your live face in real time.",
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "predev": "node scripts/setup.mjs",
+    "prebuild": "node scripts/setup.mjs",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "1.2.2",
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "vite": "5.4.20"
+  }
+}
